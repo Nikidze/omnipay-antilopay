@@ -48,10 +48,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest {
     ];
   }
 
-  public function signData(array $data, bool $isCallback = false): string {
+  protected function signData(array $data): string {
     $rawSign = "";
     openssl_sign(json_encode($data), $rawSign,
-      !$isCallback ? $this->getSecretKey() : $this->getCallbackKey(), OPENSSL_ALGO_SHA256);
+      $this->getSecretKey(), OPENSSL_ALGO_SHA256);
     return base64_encode($rawSign);
+  }
+
+  protected function verifyData(string $rawData, $sign): bool {
+    $rawSign = base64_decode($sign);
+    return openssl_verify(json_encode($rawData), $rawSign,
+      $this->getCallbackKey(), OPENSSL_ALGO_SHA256) == 1;
   }
 }

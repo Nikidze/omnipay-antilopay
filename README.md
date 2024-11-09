@@ -31,7 +31,7 @@ $gateway->setProjectId('PROJECT ID');
 $gateway->setSecretId('SECRET ID');
 // Antilopay uses RSA keys, so you need to make PEM inserts so that OpenSSL can distinguish it. It will be more efficient to load the key from a file.
 $gateway->setSecretKey("-----BEGIN RSA PRIVATE KEY-----\nSECRET KEY\n-----END RSA PRIVATE KEY-----");
-$gateway->setCallbackKey("-----BEGIN RSA PRIVATE KEY-----\nCALLBACK KEY\n-----END RSA PRIVATE KEY-----");
+$gateway->setCallbackKey("-----BEGIN PUBLIC KEY-----\nCALLBACK KEY\n-----END PUBLIC KEY-----");
 ```
 
 ### Payment Creation

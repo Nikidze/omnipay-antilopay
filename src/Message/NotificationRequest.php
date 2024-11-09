@@ -8,11 +8,13 @@ use Omnipay\Common\Message\NotificationInterface;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class NotificationRequest extends AbstractRequest implements NotificationInterface {
+  private $isValid;
   private $data;
 
   public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest) {
     parent::__construct($httpClient, $httpRequest);
 
+    $this->isValid = $this->verifyData($httpRequest->getContent(), $this->getHeaders()['X-Apay-Callback']);
     $this->data = json_decode($httpRequest->getContent(), true);
   }
 
@@ -25,8 +27,7 @@ class NotificationRequest extends AbstractRequest implements NotificationInterfa
   }
 
   public function isValid(): bool {
-    return $this->getHeaders()['X-Apay-Callback']
-      == $this->signData($this->getData(), true);
+    return $this->isValid;
   }
 
   public function getTransactionReference(): TransactionReference {
