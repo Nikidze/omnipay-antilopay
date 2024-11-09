@@ -24,7 +24,7 @@ class PurchaseRequest extends AbstractRequest {
   }
 
   public function setProductType(string $productType): void {
-    $this->setParameter('product-type', $productType);
+    $this->setParameter('product_type', $productType);
   }
 
   public function getEmail(): string {
