@@ -55,7 +55,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest {
     return base64_encode($rawSign);
   }
 
-  protected function verifyData(string $rawData, $sign): bool {
+  protected function verifyData(string $rawData, string $sign): bool {
     $rawSign = base64_decode($sign);
     return openssl_verify(json_encode($rawData), $rawSign,
       $this->getCallbackKey(), OPENSSL_ALGO_SHA256) == 1;

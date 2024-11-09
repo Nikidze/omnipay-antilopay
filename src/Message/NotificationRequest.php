@@ -15,7 +15,7 @@ class NotificationRequest extends AbstractRequest implements NotificationInterfa
   public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest) {
     parent::__construct($httpClient, $httpRequest);
 
-    $this->isValid = $this->verifyData($httpRequest->getContent(), $this->getHeaders()['X-Apay-Callback']);
+    $this->isValid = $this->verifyData($httpRequest->getContent(), $httpRequest->headers->get('X-Apay-Callback'));
     $this->data = json_decode($httpRequest->getContent(), true);
   }
 
