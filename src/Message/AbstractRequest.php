@@ -11,7 +11,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest {
     $this->setParameter('projectId', $projectId);
   }
 
-  public function getSecretId(): string {
+  public function getSecretId(): string|null {
     return $this->getParameter('secretId');
   }
 

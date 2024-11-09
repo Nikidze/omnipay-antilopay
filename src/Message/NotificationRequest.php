@@ -2,6 +2,7 @@
 
 namespace Omnipay\Antilopay\Message;
 
+use Omnipay\Antilopay\Message\AbstractRequest;
 use Omnipay\Antilopay\Model\TransactionReference;
 use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Common\Message\NotificationInterface;
