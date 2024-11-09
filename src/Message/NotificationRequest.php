@@ -31,7 +31,7 @@ class NotificationRequest extends AbstractRequest implements NotificationInterfa
 
   public function getTransactionReference(): TransactionReference {
     return new TransactionReference($this->data['order_id'], $this->data['amount'],
-      $this->data['amount'], $this->data['fee'], $this->data['currency'],
+      $this->data['original_amount'], $this->data['fee'], $this->data['currency'],
       $this->data['product_name'], $this->data['description'], $this->data['pay_method']);
   }
 
