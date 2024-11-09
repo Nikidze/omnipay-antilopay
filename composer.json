@@ -1,0 +1,32 @@
+{
+    "name": "receiver/omnipay-antilopay",
+    "type": "library",
+    "description": "Antilopay gateway for Omnipay",
+    "keywords": [
+        "omnipay",
+        "antilopay"
+    ],
+    "homepage": "https://github.com/Receiver1/omnipay-antilopay/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "receiver",
+            "email": "receiver8@yandex.ru"
+        }
+    ],
+    "require": {
+        "omnipay/common": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\Antilopay\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": false
+        }
+    }
+}

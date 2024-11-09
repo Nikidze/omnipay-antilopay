@@ -1,0 +1,8 @@
+.idea
+.vscode
+.sublime-workspace
+.sublime-project
+
+vendor
+composer.lock
+index.php
