@@ -21,7 +21,7 @@ Antilopay online acquiring support for Omnipay
 
 ## Installation
 ```bash
-composer require league/omnipay receiver1/omnipay-antilopay
+composer require league/omnipay receiver/omnipay-antilopay
 ```
 
 ## Usage

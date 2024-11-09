@@ -65,7 +65,8 @@ class PurchaseRequest extends AbstractRequest {
   public function sendData($requestData) {
     $uri = "{$this->getUrl()}/payment/create";
 
-    $headers = [...$this->getHeaders(), 'X-Apay-Sign' => $this->signData($requestData)];
+    $headers = $this->getHeaders();
+    $headers['X-Apay-Sign'] = $this->signData($requestData);
     $response = $this->httpClient->request('POST',
       $uri, $headers, json_encode($requestData));
 
