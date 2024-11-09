@@ -4,39 +4,39 @@ namespace Omnipay\Antilopay\Message;
 
 class PurchaseRequest extends AbstractRequest {
   public function getOrderId(): string {
-    return $this->getParameter('orderId');
+    return $this->getParameter('order_id');
   }
 
   public function setOrderId(string $orderId): void {
-    $this->setParameter('orderId', $orderId);
+    $this->setParameter('order_id', $orderId);
   }
 
   public function getProductName(): string {
-    return $this->getParameter('productName');
+    return $this->getParameter('product_name');
   }
 
   public function setProductName(string $productName): void {
-    $this->setParameter('productName', $productName);
+    $this->setParameter('product_name', $productName);
   }
 
   public function getProductType(): string {
-    return $this->getParameter('productType');
+    return $this->getParameter('product_type');
   }
 
   public function setProductType(string $productType): void {
-    $this->setParameter('productType', $productType);
+    $this->setParameter('product-type', $productType);
   }
 
   public function getEmail(): string {
-    return $this->getParameter('email');
+    return $this->getParameter('customer.email');
   }
 
   public function setEmail(string $email): void {
-    $this->setParameter('email', $email);
+    $this->setParameter('customer.email', $email);
   }
 
   public function getData(): array {
-    $this->validate('amount', 'orderId', 'productName', 'productType', 'description', 'email');
+    $this->validate('amount', 'order_id', 'product_name', 'product_type', 'description', 'customer.email');
 
     $data = [
       'project_identificator' => $this->getProjectId(),

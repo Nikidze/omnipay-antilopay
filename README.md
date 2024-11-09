@@ -27,9 +27,11 @@ composer require league/omnipay receiver1/omnipay-antilopay
 $gateway = Omnipay::create('Antilopay');
 
 // Set the secret code
-$gateway->setProjectId('yourProjectIdThere');
-$gateway->setSecretId('yourSecretIdThere');
-$gateway->setSecretKey("-----BEGIN RSA PRIVATE KEY-----\nyourSecretKeyThere\n-----END RSA PRIVATE KEY-----");
+$gateway->setProjectId('PROJECT ID');
+$gateway->setSecretId('SECRET ID');
+// Antilopay uses RSA keys, so you need to make PEM inserts so that OpenSSL can distinguish it. It will be more efficient to load the key from a file.
+$gateway->setSecretKey("-----BEGIN RSA PRIVATE KEY-----\nSECRET KEY\n-----END RSA PRIVATE KEY-----");
+$gateway->setCallbackKey("-----BEGIN RSA PRIVATE KEY-----\nCALLBACK KEY\n-----END RSA PRIVATE KEY-----");
 ```
 
 ### Payment Creation
@@ -38,11 +40,10 @@ $gateway->setSecretKey("-----BEGIN RSA PRIVATE KEY-----\nyourSecretKeyThere\n---
 $purchaseResponse = $gateway->purchase([
   'amount' => 100,
   'orderId' => '1',
-  'currency' => 'RUB',
-  'productName' => 'Balance top-up',
-  'productType' => 'services',
+  'product_name' => 'Balance top-up',
+  'product_type' => 'services',
   'description' => 'Balance top-up 1337 Cheats',
-  'email' => 'yourCustomer@emailAddress.ru'
+  'customer.email' => 'yourCustomer@emailAddress.ru'
 ])->send();
 
 if (!$purchaseResponse->isSuccessful()) {
