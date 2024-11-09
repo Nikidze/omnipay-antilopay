@@ -55,9 +55,5 @@ class TransactionReference {
     return $payMethod;
   }
 
-  public function getCurrency(): string {
-    return $currency;
-  }
-
   // TODO: pay_data, customer_ip, customer_useragent, customer.email, customer.phone, customer.address, customer.ip, customer.fullname
 }
