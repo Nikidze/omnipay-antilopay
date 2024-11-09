@@ -1,6 +1,10 @@
 # Omnipay: Antilopay
 Antilopay online acquiring support for Omnipay
 
+[![Total Downloads](https://img.shields.io/packagist/dt/receiver1/omnipay-antilopay.svg?style=flat-square)](https://packagist.org/packages/receiver1/omnipay-antilopay)
+[![Latest Version](https://img.shields.io/packagist/v/receiver1/omnipay-antilopay.svg?style=flat-square)](https://github.com/receiver1/omnipay-antilopay/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+
 ## Already Implemented
 * Payment creation
 * Payment notifications
