@@ -32,7 +32,8 @@ class NotificationRequest extends AbstractRequest implements NotificationInterfa
   public function getTransactionReference(): TransactionReference {
     return new TransactionReference($this->data['order_id'], $this->data['amount'],
       $this->data['original_amount'], $this->data['fee'], $this->data['currency'],
-      $this->data['product_name'], $this->data['description'], $this->data['pay_method']);
+      $this->data['product_name'], $this->data['description'], $this->data['pay_method'], $this->data['pay_data'],
+      $this->data['customer_ip'], $this->data['customer_useragent'], $this->data['customer']);
   }
 
   public function getTransactionStatus(): string {
@@ -42,7 +43,7 @@ class NotificationRequest extends AbstractRequest implements NotificationInterfa
     return NotificationInterface::STATUS_FAILED;
   }
 
-  public function getMessage() {
-    return null;
+  public function getMessage(): string {
+    return '';
   }
 }

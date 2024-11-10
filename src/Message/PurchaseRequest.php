@@ -2,6 +2,8 @@
 
 namespace Omnipay\Antilopay\Message;
 
+use Omnipay\Antilopay\Model\CustomerReference;
+
 class PurchaseRequest extends AbstractRequest {
   public function getOrderId(): string {
     return $this->getParameter('order_id');
@@ -27,16 +29,53 @@ class PurchaseRequest extends AbstractRequest {
     $this->setParameter('product_type', $productType);
   }
 
-  public function getEmail(): string {
-    return $this->getParameter('customer.email');
+  public function getProductQuantity() {
+    return $this->getParameter('product_quantity');
   }
 
-  public function setEmail(string $email): void {
-    $this->setParameter('customer.email', $email);
+  public function setProductQuantity(int $productQuantity): void {
+    $this->setParameter('product_quantity', $productQuantity);
+  }
+
+  public function getVat() {
+    return $this->getParameter('vat');
+  }
+
+  public function setVat(int $vat): void {
+    $this->setParameter('vat', $vat);
+  }
+
+  public function getPreferMethods() {
+    return $this->getParameter('prefer_methods');
+  }
+
+  public function setPreferMethods(array $preferMethods): void {
+    $this->setParameter('prefer_methods', $preferMethods);
+  }
+
+  public function getCustomer(): CustomerReference {
+    return $this->getParameter('customer');
+  }
+
+  public function setCustomer(CustomerReference $customerReference): void {
+    $this->setParameter('customer', $customerReference);
   }
 
   public function getData(): array {
-    $this->validate('amount', 'order_id', 'product_name', 'product_type', 'description', 'customer.email');
+    $this->validate('amount', 'order_id', 'product_name', 'product_type', 'description', 'customer');
+
+    $customerData = [];
+
+    if ($this->getCustomer()->getEmail())
+      $customerData['email'] = $this->getCustomer()->getEmail();
+    if ($this->getCustomer()->getPhone())
+      $customerData['phone'] = $this->getCustomer()->getPhone();
+    if ($this->getCustomer()->getAddress())
+      $customerData['address'] = $this->getCustomer()->getAddress();
+    if ($this->getCustomer()->getIp())
+      $customerData['ip'] = $this->getCustomer()->getIp();
+    if ($this->getCustomer()->getFullname())
+      $customerData['fullname'] = $this->getCustomer()->getFullname();
 
     $data = [
       'project_identificator' => $this->getProjectId(),
@@ -46,18 +85,19 @@ class PurchaseRequest extends AbstractRequest {
       'product_type' => $this->getProductType(),
       'currency' => 'RUB',
       'description' => $this->getDescription(),
-      'customer' => [
-        'email' => $this->getEmail(),
-      ]
+      'customer' => $customerData,
     ];
 
-    if ($this->getReturnUrl()) {
+    if ($this->getProductQuantity())
+      $data['product_quantity'] = $this->getProductQuantity();
+    if ($this->getVat())
+      $data['vat'] = $this->getVat();
+    if ($this->getReturnUrl())
       $data['success_url'] = $this->getReturnUrl();
-    }
-
-    if ($this->getCancelUrl()) {
+    if ($this->getCancelUrl())
       $data['fail_url'] = $this->getCancelUrl();
-    }
+    if ($this->getPreferMethods())
+      $data['prefer_methods'] = $this->getPreferMethods();
 
     return $data;
   }

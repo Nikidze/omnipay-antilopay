@@ -11,8 +11,12 @@ class TransactionReference {
   private $productName;
   private $descripion;
   private $payMethod;
+  private $payData;
+  private $customerIp;
+  private $customerUserAgent;
+  private $customer;
 
-  public function __construct($orderId, $amount, $originalAmount, $fee, $currency, $productName, $description, $payMethod) {
+  public function __construct($orderId, $amount, $originalAmount, $fee, $currency, $productName, $description, $payMethod, $payData, $customerIp, $customerUserAgent, $customer) {
     $this->orderId = $orderId;
     $this->amount = $amount;
     $this->originalAmount = $originalAmount;
@@ -21,6 +25,10 @@ class TransactionReference {
     $this->productName = $productName;
     $this->description = $description;
     $this->payMethod = $payMethod;
+    $this->payData = $payData;
+    $this->customerIp = $customerIp;
+    $this->customerUserAgent = $customerUserAgent;
+    $this->customer = $customer;
   }
 
   public function getOrderId(): string {
@@ -55,5 +63,20 @@ class TransactionReference {
     return $payMethod;
   }
 
-  // TODO: pay_data, customer_ip, customer_useragent, customer.email, customer.phone, customer.address, customer.ip, customer.fullname
+  public function getPayData(): string {
+    return $payData;
+  }
+
+  public function getCustomerIp(): string {
+    return $customerIp;
+  }
+
+  public function getCustomerUserAgent(): string {
+    return $customerUserAgent;
+  }
+
+  public function getCustomer(): CustomerReference {
+    return new CustomerReference($customer['email'], $customer['phone'],
+      $customer['address'], $customer['ip'], $customer['fullname']);
+  }
 }

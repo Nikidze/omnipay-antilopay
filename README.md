@@ -41,17 +41,47 @@ $gateway->setCallbackKey("-----BEGIN PUBLIC KEY-----\nCALLBACK KEY\n-----END PUB
 ### Payment Creation
 ```php
 // Create a new payment for 100 rubles 00 kopecks
-$purchaseResponse = $gateway->purchase([
+$purchaseRequest = $gateway->purchase([
   'amount' => 100,
   'orderId' => '1',
   'product_name' => 'Balance top-up',
-  'product_type' => 'services',
+  'product_type' => 'goods',
+  'product_quantity' => 100,
+  'vat' => 10,
   'description' => 'Balance top-up 1337 Cheats',
-  'customer.email' => 'yourCustomer@emailAddress.ru'
-])->send();
+  'returnUrl' => 'https://leet-cheats.ru/payment/success',  // success_url
+  'cancelUrl' => 'https://leet-cheats.ru/payment/fail',     // fail_url
+  'customer' => new CustomerReference(
+    email: 'customer-email@example.com', 
+    phone: '1234567890', 
+    address: '123 Customer Street', 
+    ip: '192.168.0.1', 
+    fullname: 'Customerov Customer Customerovich'
+  ),
+  'prefer_methods' => ['SBP', 'SBER_PAY', 'CARD_RU'],
+]);
+// alternative way to set data
+$purchaseRequest->setAmount(100);
+$purchaseRequest->setOrderId('1');
+$purchaseRequest->setProductName('Balance top-up');
+$purchaseRequest->setProductType('goods');
+$purchaseRequest->setProductQuantity(100);
+$purchaseRequest->setVat(10);
+$purchaseRequest->setDescription('Balance top-up 1337 Cheats');
+$purchaseRequest->setReturnUrl('https://leet-cheats.ru/payment/success');
+$purchaseRequest->setCancelUrl('https://leet-cheats.ru/payment/fail');
+$purchaseRequest->setCustomer(new CustomerReference(
+  email: 'customer-email@example.com', 
+  phone: '1234567890', 
+  address: '123 Customer Street', 
+  ip: '192.168.0.1', 
+  fullname: 'Customerov Customer Customerovich'
+));
+$purchaseRequest->setPreferMethods(['SBP', 'SBER_PAY', 'CARD_RU']);
 
+$purchaseResponse = $purchaseRequest->send();
 if (!$purchaseResponse->isSuccessful()) {
-  throw new Exception($response->getMessage());
+  throw new Error($response->getMessage(), $response->getCode());
 }
 
 // Get the payment identifier in Antilopay
@@ -68,8 +98,29 @@ if (
   $notification->getTransactionStatus() 
     === NotificationInterface::STATUS_COMPLETED
 ) {
-  /** @var TransactionReference $incomingTransaction */
-  $incomingTransaction = $notification->getTransactionReference();
-  print ($incomingTransaction->getAmount());
+  /** @var TransactionReference $transaction */
+  $transaction = $notification->getTransactionReference();
+  var_dump([
+    $transaction->getOrderId(),
+    $transaction->getAmount(),
+    $transaction->getOriginalAmount(),
+    $transaction->getFee(),
+    $transaction->getCurrency(),
+    $transaction->getProductName(),
+    $transaction->getDescription(),
+    $transaction->getPayMethod(),
+    $transaction->getPayData(),
+    $transaction->getCustomerIp(),
+    $transaction->getCustomerUserAgent(),
+  ]);
+
+  $customer = $transaction->getCustomer();
+  var_dump([
+    $customer->getEmail(),
+    $customer->getPhone(),
+    $customer->getAddress(),
+    $customer->getIp(),
+    $customer->getFullname(),
+  ]);
 }
 ```
