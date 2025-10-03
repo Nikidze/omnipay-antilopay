@@ -1,8 +1,10 @@
 # Omnipay: Antilopay
-Antilopay online acquiring support for Omnipay
+Antilopay online acquiring support for Omnipay.
 
-[![Total Downloads](https://img.shields.io/packagist/dt/receiver1/omnipay-antilopay.svg?style=flat-square)](https://packagist.org/packages/receiver1/omnipay-antilopay)
-[![Latest Version](https://img.shields.io/packagist/v/receiver1/omnipay-antilopay.svg?style=flat-square)](https://github.com/receiver1/omnipay-antilopay/releases)
+This repository is a fork of the original library https://github.com/receiver1/omnipay-antilopay with some bug fixes.
+
+[![Total Downloads](https://img.shields.io/packagist/dt/nikidze/omnipay-antilopay.svg?style=flat-square)](https://packagist.org/packages/nikidze/omnipay-antilopay)
+[![Latest Version](https://img.shields.io/packagist/v/nikidze/omnipay-antilopay.svg?style=flat-square)](https://github.com/nikidze/omnipay-antilopay/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 ## Already Implemented
@@ -21,7 +23,7 @@ Antilopay online acquiring support for Omnipay
 
 ## Installation
 ```bash
-composer require league/omnipay receiver/omnipay-antilopay
+composer require league/omnipay nikidze/omnipay-antilopay
 ```
 
 ## Usage

@@ -1,21 +1,27 @@
 {
-    "name": "receiver/omnipay-antilopay",
+    "name": "nikidze/omnipay-antilopay",
     "type": "library",
     "description": "Antilopay gateway for Omnipay",
     "keywords": [
         "omnipay",
         "antilopay"
     ],
-    "homepage": "https://github.com/Receiver1/omnipay-antilopay/",
+    "homepage": "https://github.com/Nikidze/omnipay-antilopay",
     "license": "MIT",
     "authors": [
         {
             "name": "receiver",
             "email": "receiver8@yandex.ru"
+        },
+        {
+            "name": "Nikidze",
+            "email": "nikidze.dev@ya.ru"
         }
     ],
     "require": {
-        "omnipay/common": "^3.3"
+        "php": "^8.4",
+        "ext-openssl": "*",
+        "omnipay/common": "^3.4"
     },
     "autoload": {
         "psr-4": {
